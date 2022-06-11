@@ -16,6 +16,10 @@ import static org.junit.Assert.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
+
+/**
+ *  @WebMvcTest으로는, Controller, ControllerAdvice 등 [외부 연동과 관련된 부분만 활성화가 된다.]
+ */
 @RunWith(SpringRunner.class)
 @WebMvcTest
 public class HelloControllerTest {
