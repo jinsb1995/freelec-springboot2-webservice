@@ -1,6 +1,6 @@
 package com.jojoldu.book.springboot.web;
 
-import com.jojoldu.book.springboot.service.posts.PostsService;
+import com.jojoldu.book.springboot.service.PostsService;
 import com.jojoldu.book.springboot.web.dto.PostsResponseDTO;
 import com.jojoldu.book.springboot.web.dto.PostsSaveRequestDTO;
 import com.jojoldu.book.springboot.web.dto.PostsUpdateRequestDTO;
