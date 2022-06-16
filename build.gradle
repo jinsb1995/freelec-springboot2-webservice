@@ -65,9 +65,18 @@ dependencies {
     compile('org.springframework.boot:spring-boot-starter-oauth2-client')
 
 
+    /**
+     * 세션 저장소를 톰캣에 저장하지 않고, Jdbc를 통해 db에 저장한다.
+     */
     compile('org.springframework.session:spring-session-jdbc')
 
+
+
     testCompile('org.springframework.boot:spring-boot-starter-test')
+
+    /**   스프링 시큐리티 테스트를 위한 여러 도구를 지원   */
+    testCompile('org.springframework.security:spring-security-test')
+
 
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.0'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.0'

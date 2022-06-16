@@ -1,11 +1,15 @@
 package com.jojoldu.book.springboot.web;
 
+import com.jojoldu.book.springboot.config.auth.SecurityConfig;
 import org.hamcrest.Matcher;
 import org.hamcrest.Matchers;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.FilterType;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
@@ -19,25 +23,33 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 /**
  *  @WebMvcTest으로는, Controller, ControllerAdvice 등 [외부 연동과 관련된 부분만 활성화가 된다.]
+ *  Repository, Service, Component는 스캔 대상이 아니다.
  */
 @RunWith(SpringRunner.class)
-@WebMvcTest
+@WebMvcTest(controllers = HelloController.class,
+        excludeFilters = {
+            @ComponentScan.Filter(type = FilterType.ASSIGNABLE_TYPE,
+                                  classes = SecurityConfig.class)
+        }
+)
 public class HelloControllerTest {
 
     @Autowired
     private MockMvc mvc;
 
 
+    @WithMockUser(roles = "USER")
     @Test
     public void hello가_리턴된다() throws Exception {
         String hello = "hello";
 
-        mvc.perform(get("/hello"))
+        mvc.perform(get("/helloV1"))
                 .andExpect(status().isOk())
                 .andExpect(content().string("hello"));
     }
 
 
+    @WithMockUser(roles = "USER")
     @Test
     public void helloDto가_리턴된다() throws Exception {
         String name = "hello";

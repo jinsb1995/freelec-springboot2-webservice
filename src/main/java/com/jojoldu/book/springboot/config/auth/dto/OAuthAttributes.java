@@ -17,10 +17,7 @@ public class OAuthAttributes {
     private String picture;
 
     @Builder
-    public OAuthAttributes(Map<String, Object> attributes,
-                           String nameAttributeKey, String name,
-                           String email, String picture) {
-
+    public OAuthAttributes(Map<String, Object> attributes, String nameAttributeKey, String name, String email, String picture) {
         this.attributes = attributes;
         this.nameAttributeKey = nameAttributeKey;
         this.name = name;
@@ -33,6 +30,14 @@ public class OAuthAttributes {
      * OAuth2User에서 반환하는 사용자 정보는 MAP이기 때문에 값 하나하나를 변환해야 한다.
      */
     public static OAuthAttributes of(String registrationId, String userNameAttributeName, Map<String, Object> attributes) {
+        if ("naver".equals(registrationId)) {
+
+            // 스프링 시큐리티에서는 [하위 필드를 명시할 수 없다].
+            // 최상위 필드들만 user_name으로 지정할 수 있는데, naver의 최상위 필드는 resultcode, message, response이다.
+            // 그래서 스프링 시큐리티에서 인식 가능한 필드는 저 3개중에 골라야 한다.
+            // 본문에서 담고있는 response를 user_name으로 지정하고, 이후 [자바 코드로 response의 id를 user_name으로 지정] 할 것이다.
+            return ofNaver("id", attributes);
+        }
         return ofGoogle(userNameAttributeName, attributes);
     }
 
@@ -44,6 +49,20 @@ public class OAuthAttributes {
                 .email((String) attributes.get("email"))
                 .picture((String) attributes.get("picture"))
                 .attributes(attributes)
+                .nameAttributeKey(userNameAttributeName)
+                .build();
+    }
+
+    public static OAuthAttributes ofNaver(String userNameAttributeName, Map<String, Object> attributes) {
+
+        Map<String, Object> response = (Map<String, Object>) attributes.get("response");
+
+
+        return OAuthAttributes.builder()
+                .name((String) response.get("name"))
+                .email((String) response.get("email"))
+                .picture((String) response.get("profile_image"))
+                .attributes(response)
                 .nameAttributeKey(userNameAttributeName)
                 .build();
     }
