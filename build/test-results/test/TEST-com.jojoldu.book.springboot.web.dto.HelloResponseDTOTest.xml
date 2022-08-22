@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.jojoldu.book.springboot.web.dto.HelloResponseDTOTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2022-08-22T15:30:57" hostname="DESKTOP-CQK8RFV" time="0.003">
+  <properties/>
+  <testcase name="롬복_기능_테스트()" classname="com.jojoldu.book.springboot.web.dto.HelloResponseDTOTest" time="0.003"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

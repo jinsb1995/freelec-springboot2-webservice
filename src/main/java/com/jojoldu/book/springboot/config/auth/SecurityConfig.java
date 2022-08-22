@@ -6,6 +6,8 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 
+import java.util.Locale;
+
 @RequiredArgsConstructor
 @EnableWebSecurity  // 1. Spring Security 설정들을 활성화 시켜준다.
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
@@ -67,5 +69,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         .userInfoEndpoint()
                             .userService(customOAuth2UserService);
 
+        Locale.getISOCountries();
     }
 }

@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.jojoldu.book.springboot.web.IndexControllerTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2022-08-22T15:30:57" hostname="DESKTOP-CQK8RFV" time="0.189">
+  <properties/>
+  <testcase name="메인페이지_로딩()" classname="com.jojoldu.book.springboot.web.IndexControllerTest" time="0.189"/>
+  <system-out><![CDATA[2022-08-23 00:30:55.947  INFO 3620 --- [    Test worker] .b.t.c.SpringBootTestContextBootstrapper : Neither @ContextConfiguration nor @ContextHierarchy found for test class [com.jojoldu.book.springboot.web.IndexControllerTest], using SpringBootContextLoader
+2022-08-23 00:30:55.948  INFO 3620 --- [    Test worker] o.s.t.c.support.AbstractContextLoader    : Could not detect default resource locations for test class [com.jojoldu.book.springboot.web.IndexControllerTest]: no resource found for suffixes {-context.xml, Context.groovy}.
+2022-08-23 00:30:55.948  INFO 3620 --- [    Test worker] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [com.jojoldu.book.springboot.web.IndexControllerTest]: IndexControllerTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2022-08-23 00:30:55.956  INFO 3620 --- [    Test worker] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration com.jojoldu.book.springboot.Application for test class com.jojoldu.book.springboot.web.IndexControllerTest
+2022-08-23 00:30:55.957  INFO 3620 --- [    Test worker] .b.t.c.SpringBootTestContextBootstrapper : Loaded default TestExecutionListener class names from location [META-INF/spring.factories]: [org.springframework.security.test.context.support.WithSecurityContextTestExecutionListener, org.springframework.security.test.context.support.ReactorContextTestExecutionListener, org.springframework.boot.test.autoconfigure.restdocs.RestDocsTestExecutionListener, org.springframework.boot.test.autoconfigure.web.client.MockRestServiceServerResetTestExecutionListener, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcPrintOnlyOnFailureTestExecutionListener, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverTestExecutionListener, org.springframework.boot.test.autoconfigure.webservices.client.MockWebServiceServerTestExecutionListener, org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener, org.springframework.boot.test.mock.mockito.ResetMocksTestExecutionListener, org.springframework.test.context.web.ServletTestExecutionListener, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener, org.springframework.test.context.support.DependencyInjectionTestExecutionListener, org.springframework.test.context.support.DirtiesContextTestExecutionListener, org.springframework.test.context.transaction.TransactionalTestExecutionListener, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener, org.springframework.test.context.event.EventPublishingTestExecutionListener]
+2022-08-23 00:30:55.958  INFO 3620 --- [    Test worker] .b.t.c.SpringBootTestContextBootstrapper : Using TestExecutionListeners: [org.springframework.test.context.web.ServletTestExecutionListener@1d4bdb4f, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener@496ed8b3, org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener@4fb080e7, org.springframework.boot.test.autoconfigure.SpringBootDependencyInjectionTestExecutionListener@64000fa2, org.springframework.test.context.support.DirtiesContextTestExecutionListener@27d221ce, org.springframework.test.context.transaction.TransactionalTestExecutionListener@1846dec7, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener@53bac290, org.springframework.security.test.context.support.WithSecurityContextTestExecutionListener@3723ba5a, org.springframework.test.context.event.EventPublishingTestExecutionListener@1c93121, org.springframework.security.test.context.support.ReactorContextTestExecutionListener@2fd76739, org.springframework.boot.test.autoconfigure.restdocs.RestDocsTestExecutionListener@2a7c9e11, org.springframework.boot.test.autoconfigure.web.client.MockRestServiceServerResetTestExecutionListener@a7106e, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcPrintOnlyOnFailureTestExecutionListener@48af7962, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverTestExecutionListener@5c5521e1, org.springframework.boot.test.autoconfigure.webservices.client.MockWebServiceServerTestExecutionListener@1297a06c, org.springframework.boot.test.mock.mockito.ResetMocksTestExecutionListener@2a0bf630]
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+ :: Spring Boot ::                (v2.4.1)
+
+2022-08-23 00:30:55.986  INFO 3620 --- [    Test worker] c.j.b.s.web.IndexControllerTest          : Starting IndexControllerTest using Java 11.0.12 on DESKTOP-CQK8RFV with PID 3620 (started by jinsb in D:\study\springboot-aws-project\freelec-springboot2-webservice)
+2022-08-23 00:30:55.987  INFO 3620 --- [    Test worker] c.j.b.s.web.IndexControllerTest          : No active profile set, falling back to default profiles: default
+2022-08-23 00:30:56.160  INFO 3620 --- [    Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2022-08-23 00:30:56.173  INFO 3620 --- [    Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 12 ms. Found 2 JPA repository interfaces.
+2022-08-23 00:30:56.411  INFO 3620 --- [    Test worker] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 0 (http)
+2022-08-23 00:30:56.423  INFO 3620 --- [    Test worker] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2022-08-23 00:30:56.423  INFO 3620 --- [    Test worker] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.41]
+2022-08-23 00:30:56.547  INFO 3620 --- [    Test worker] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2022-08-23 00:30:56.547  INFO 3620 --- [    Test worker] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 558 ms
+2022-08-23 00:30:56.583  INFO 3620 --- [    Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Starting...
+2022-08-23 00:30:56.584  INFO 3620 --- [    Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Start completed.
+2022-08-23 00:30:56.584  INFO 3620 --- [    Test worker] o.s.b.a.h2.H2ConsoleAutoConfiguration    : H2 console available at '/h2-console'. Database available at 'jdbc:h2:mem:testdb'
+2022-08-23 00:30:56.707  INFO 3620 --- [    Test worker] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2022-08-23 00:30:56.713  INFO 3620 --- [    Test worker] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.MySQL5Dialect
+Hibernate: drop table if exists posts
+Hibernate: drop table if exists user
+Hibernate: create table posts (id bigint not null auto_increment, created_date datetime, modified_date datetime, author varchar(255), content TEXT not null, title varchar(500) not null, primary key (id)) engine=MyISAM
+Hibernate: create table user (id bigint not null auto_increment, email varchar(255) not null, name varchar(255) not null, picture varchar(255) not null, role varchar(255) not null, primary key (id)) engine=MyISAM
+2022-08-23 00:30:56.756  INFO 3620 --- [    Test worker] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2022-08-23 00:30:56.756  INFO 3620 --- [    Test worker] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2022-08-23 00:30:56.931  WARN 3620 --- [    Test worker] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2022-08-23 00:30:57.074  INFO 3620 --- [    Test worker] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@c76fa43, org.springframework.security.web.context.SecurityContextPersistenceFilter@47a4baaa, org.springframework.security.web.header.HeaderWriterFilter@5ee1a906, org.springframework.security.web.authentication.logout.LogoutFilter@6ec0fdcc, org.springframework.security.oauth2.client.web.OAuth2AuthorizationRequestRedirectFilter@41e32baa, org.springframework.security.oauth2.client.web.OAuth2LoginAuthenticationFilter@575d4666, org.springframework.security.web.authentication.ui.DefaultLoginPageGeneratingFilter@6bb7fd9, org.springframework.security.web.authentication.ui.DefaultLogoutPageGeneratingFilter@2ad58ad0, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@41d97760, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@12a35fc4, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@72b35a5b, org.springframework.security.web.session.SessionManagementFilter@483b96e7, org.springframework.security.web.access.ExceptionTranslationFilter@5f0b3e00, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@17e63c69]
+2022-08-23 00:30:57.151  INFO 3620 --- [    Test worker] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2022-08-23 00:30:57.178  INFO 3620 --- [    Test worker] o.s.b.a.w.s.WelcomePageHandlerMapping    : Adding welcome page template: index
+2022-08-23 00:30:57.329  INFO 3620 --- [    Test worker] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 51062 (http) with context path ''
+2022-08-23 00:30:57.332  INFO 3620 --- [    Test worker] s.a.ScheduledAnnotationBeanPostProcessor : No TaskScheduler/ScheduledExecutorService bean found for scheduled processing
+2022-08-23 00:30:57.333  INFO 3620 --- [    Test worker] c.j.b.s.web.IndexControllerTest          : Started IndexControllerTest in 1.371 seconds (JVM running for 7.484)
+2022-08-23 00:30:57.426  INFO 3620 --- [o-auto-1-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2022-08-23 00:30:57.426  INFO 3620 --- [o-auto-1-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2022-08-23 00:30:57.427  INFO 3620 --- [o-auto-1-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
+Hibernate: select posts0_.id as id1_0_, posts0_.created_date as created_2_0_, posts0_.modified_date as modified3_0_, posts0_.author as author4_0_, posts0_.content as content5_0_, posts0_.title as title6_0_ from posts posts0_ order by posts0_.id desc
+
+<!DOCTYPE HTML>
+<html>
+<head>
+    <title>스프링 부트 웹서비스</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+</head>
+<body>
+
+    <h1>스프링 부트로 시작하는 웹 서비스</h1>
+
+    <div class="col-md-12">
+        <!--   로그인 기능 영역   -->
+        <div class="row">
+            <div class="col-md-6">
+                <a href="/posts/save" role="button" class="btn btn-primary">글 등록</a>
+                  <!--  ^ 는  값이 존재하지 않다는 뜻  -->
+                    <!--
+                        /oauth2/authorization/google
+                            이것도 스프링 시큐리티에서 기본적으로 제공하는 로그인 URL이다.
+                            로그아웃과 마찬가지로 개발자가 별도의 컨트롤러를 생성할 필요가 없다.
+
+                        /oauth2/authorization/naver
+                            - 네이버 로그인 URL은 application-oauth.properties에 등록한 redirect-uri 값에 맞춰 자동으로 등록된다.
+                            - /oauth2/authorization/ 까지는 고정이고 마지막 Path만 각 소셜 로그인 코드를 사용하면 된다.
+                            - 여기서는 naver가 마지막 Path가 된다.
+                    -->
+                    <a href="/oauth2/authorization/google" class="btn btn-success active" role="button">Google Login</a>
+                    <a href="/oauth2/authorization/naver" class="btn btn-success active" role="button">Naver Login</a>
+            </div>
+        </div>
+        <br />
+
+        <!-- 목록 출력 영역 -->
+        <table class="table table-horizontal table-bordered">
+            <thead class="thead-strong">
+                <tr>
+                    <th>게시번호</th>
+                    <th>제목</th>
+                    <th>작정자</th>
+                    <th>최종수정일</th>
+                </tr>
+            </thead>
+            <tbody id="tbody">
+            </tbody>
+        </table>
+
+    </div>
+
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+<!-- index.js 추가 -->
+<script src="/js/app/index.js"></script>
+</body>
+</html>
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

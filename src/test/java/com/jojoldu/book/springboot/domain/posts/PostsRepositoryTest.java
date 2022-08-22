@@ -1,20 +1,19 @@
 package com.jojoldu.book.springboot.domain.posts;
 
-import org.assertj.core.api.Assertions;
-import org.junit.After;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.DisplayName;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.time.LocalDateTime;
 import java.util.List;
 
-import static org.assertj.core.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
 
-@RunWith(SpringRunner.class)
+@ExtendWith(SpringExtension.class)
 @SpringBootTest
 public class PostsRepositoryTest {
 
@@ -25,9 +24,9 @@ public class PostsRepositoryTest {
      * - JUnit에서 단위 테스트가 끝날 때 마다 수행되는 메서드를 지정
      * - 보통은 배포 전 전체 테스트를 수행할 때 테스트간 데이터 침범을 막기 위해 사용한다.
      * - 여러 테스트가 동시에 수행되면 테스트용 데이터베이스인 H@에 데이터가 그대로 남아있어
-     *   다음 테스트 실행 시 테스트가 실패할 수 있다.
+     * 다음 테스트 실행 시 테스트가 실패할 수 있다.
      */
-    @After
+    @AfterEach
     public void cleanUp() {
         postsRepository.deleteAll();
     }

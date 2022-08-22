@@ -1,46 +1,29 @@
-buildscript {
-
-    /**   [ext] - build.gradle 파일 내의 전역변수 설정   */
-    ext {
-        springBootVersion = '2.1.7.RELEASE'
-    }
-
-    /**  [repositories]
-     * 각종 의존성(라이브러리)들을 어떤 원격 저장소에서 받을지를 정한다.
-     *
-     * mavenCentral() - 기본적으로 많이 사용하지만, 내가 만든 라이브러리를 업로드 하기 위한 과정이 많이 복잡하다.
-     * jcenter() - mavenCentral()의 단점을 보완해 업로드가 쉬워서  많은 개발자들이 여기로 넘어온다.
-     */
-    repositories {
-        mavenCentral()
-        jcenter()
-    }
-
-    dependencies {
-        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
-    }
+plugins { // (1)
+    id 'org.springframework.boot' version '2.4.1'
+    id 'io.spring.dependency-management' version '1.0.10.RELEASE'
+    id 'java'
 }
-
-/**
- * 이 4개의 플러그인들은 자바, 스프링 부트를 사용하기 위한 필수 플러그인이다.
- */
-apply plugin: 'java'
-apply plugin: 'eclipse'
-apply plugin: 'org.springframework.boot'
-apply plugin: 'io.spring.dependency-management'   // 스프링 부트의 의존성들을 관리해주는 플러그인 [필수]
-
-//plugins {
-//    id 'java'
-//}
 
 group 'com.jojoldu.book'
-version '1.0-SNAPSHOT'
+version '1.0.4-SNAPSHOT-' + new Date().format('yyyyMMddHHmmss')
+sourceCompatibility=1.8
 
 
+/**  [repositories]
+ * 각종 의존성(라이브러리)들을 어떤 원격 저장소에서 받을지를 정한다.
+ *
+ * mavenCentral() - 기본적으로 많이 사용하지만, 내가 만든 라이브러리를 업로드 하기 위한 과정이 많이 복잡하다.
+ * jcenter() - mavenCentral()의 단점을 보완해 업로드가 쉬워서  많은 개발자들이 여기로 넘어온다.
+ */
 repositories {
     mavenCentral()
+    jcenter()
 }
 
+// for Junit5 (2)
+test {
+    useJUnitPlatform()
+}
 
 
 /**
@@ -48,40 +31,155 @@ repositories {
  */
 dependencies {
 
-    compile('org.springframework.boot:spring-boot-starter-web')
-    compile('org.projectlombok:lombok')
+    // (3)
+    implementation('org.springframework.boot:spring-boot-starter-web')
+    implementation('org.springframework.boot:spring-boot-starter-mustache')
 
-    compile('org.springframework.boot:spring-boot-starter-data-jpa')
+    // lombok
+    implementation('org.projectlombok:lombok')
+    annotationProcessor('org.projectlombok:lombok')
+    testImplementation('org.projectlombok:lombok')
+    testAnnotationProcessor('org.projectlombok:lombok')
 
-    compile('com.h2database:h2')
-
-    compile('org.springframework.boot:spring-boot-starter-mustache')
+    implementation('org.springframework.boot:spring-boot-starter-data-jpa')
+    implementation('org.mariadb.jdbc:mariadb-java-client')
+    implementation('com.h2database:h2')
 
 
     /**
      * 소셜 로그인 등 클라이언트 입장에서 소셜 기능 구현시 필요
      * spring-security-oauth2-client와 spring-security-oauth2-jose를 기본으로 관리해준다.
      */
-    compile('org.springframework.boot:spring-boot-starter-oauth2-client')
+    implementation('org.springframework.boot:spring-boot-starter-oauth2-client')  // 권한 관련
 
 
     /**
      * 세션 저장소를 톰캣에 저장하지 않고, Jdbc를 통해 db에 저장한다.
      */
-    compile('org.springframework.session:spring-session-jdbc')
+    implementation('org.springframework.session:spring-session-jdbc')  // 권한 관련
 
-
-
-    testCompile('org.springframework.boot:spring-boot-starter-test')
+    testImplementation('org.springframework.boot:spring-boot-starter-test')
 
     /**   스프링 시큐리티 테스트를 위한 여러 도구를 지원   */
-    testCompile('org.springframework.security:spring-security-test')
-
-
-    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.0'
-    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.0'
+    testImplementation('org.springframework.security:spring-security-test')
 }
 
-test {
-    useJUnitPlatform()
-}
+
+/*
+
+    Gradle 버전 6이 되면서 바뀐점
+        - compile, testCompile은 Soft Deprecate되었다.
+        - 그 대신 implementation, testImplementation
+
+    @Test 어노테이션의 기존 위치는
+        Junit4 - org.junit.Test
+        Junit5 - org.junit.jupiter.api.Test
+
+    @RunWith -> @ExtendWith로 변경
+        junit4 - org.junit.runner.RunWith
+        junit5 - org.junit.jupiter.api.extension.ExtendWith
+
+
+    @RunWith(SpringRunner.class) -> @ExtendWith(SpringExtension.class)
+        junit4 - org.springframework.test.context.junit4.SpringRunner
+        junit5 - org.springframework.test.context.junit.jupiter.SpringExtension
+
+
+    테스트 메소드가 끝날 때 마다 수행되는 @After
+    @After -> @AfterEach로 변경
+
+    테스트 메소드가 시작되기 전 수행되는 @Before
+    @Before -> @BeforeEach로 변경
+
+
+ */
+
+
+// Gradle 버전 5에서 사용된 문법
+//buildscript {
+//
+//    /**   [ext] - build.gradle 파일 내의 전역변수 설정   */
+//    ext {
+//        springBootVersion = '2.1.7.RELEASE'
+//    }
+//
+//    /**  [repositories]
+//     * 각종 의존성(라이브러리)들을 어떤 원격 저장소에서 받을지를 정한다.
+//     *
+//     * mavenCentral() - 기본적으로 많이 사용하지만, 내가 만든 라이브러리를 업로드 하기 위한 과정이 많이 복잡하다.
+//     * jcenter() - mavenCentral()의 단점을 보완해 업로드가 쉬워서  많은 개발자들이 여기로 넘어온다.
+//     */
+//    repositories {
+//        mavenCentral()
+//        jcenter()
+//    }
+//
+//    dependencies {
+//        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+//    }
+//}
+//
+///**
+// * 이 4개의 플러그인들은 자바, 스프링 부트를 사용하기 위한 필수 플러그인이다.
+// */
+//apply plugin: 'java'
+//apply plugin: 'eclipse'
+//apply plugin: 'org.springframework.boot'
+//apply plugin: 'io.spring.dependency-management'   // 스프링 부트의 의존성들을 관리해주는 플러그인 [필수]
+//
+////plugins {
+////    id 'java'
+////}
+//
+//group 'com.jojoldu.book'
+//version '1.0-SNAPSHOT'
+//
+//
+//repositories {
+//    mavenCentral()
+//}
+//
+//
+//
+///**
+// * 프로젝트 개발에 필요한 의존성들을 선언하는 곳이다.
+// */
+//dependencies {
+//
+//    compile('org.springframework.boot:spring-boot-starter-web')
+//    compile('org.projectlombok:lombok')
+//
+//    compile('org.springframework.boot:spring-boot-starter-data-jpa')
+//
+//    compile('com.h2database:h2')
+//
+//    compile('org.springframework.boot:spring-boot-starter-mustache')
+//
+//
+//    /**
+//     * 소셜 로그인 등 클라이언트 입장에서 소셜 기능 구현시 필요
+//     * spring-security-oauth2-client와 spring-security-oauth2-jose를 기본으로 관리해준다.
+//     */
+//    compile('org.springframework.boot:spring-boot-starter-oauth2-client')
+//
+//
+//    /**
+//     * 세션 저장소를 톰캣에 저장하지 않고, Jdbc를 통해 db에 저장한다.
+//     */
+//    compile('org.springframework.session:spring-session-jdbc')
+//
+//
+//
+//    testCompile('org.springframework.boot:spring-boot-starter-test')
+//
+//    /**   스프링 시큐리티 테스트를 위한 여러 도구를 지원   */
+//    testCompile('org.springframework.security:spring-security-test')
+//
+//
+//    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.0'
+//    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.0'
+//}
+//
+//test {
+//    useJUnitPlatform()
+//}
