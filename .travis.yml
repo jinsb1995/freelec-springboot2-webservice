@@ -2,8 +2,8 @@ language: java
 jdk:
   - openjdk8
 
-# Travis CI를 어느 브랜치가 푸시될 때 수행할지 지정합니다.
-# 현재 옵션은 오직 master 브랜치에 push될 떄만 수행합니다.
+# Travis CI를 어느 브랜치가 푸시될 때 수행할지 지정한다.
+# 현재 옵션은 오직 master 브랜치에 push될 떄만 수행한다.
 branches:
   only:
     - master
@@ -11,7 +11,7 @@ branches:
 
 # Travis CI 서버의 Home
 # gradle을 통해 의존성을 받게 되면, 이를 해당 디렉토리에 캐시하여,
-# [같은 의존성은 다음 배포 때 부터 다시 받지 않도록] 설정합니다.
+# [같은 의존성은 다음 배포 때 부터 다시 받지 않도록] 설정한다.
 cache:
   directories:
     - '$HOME/.m2/repository'
@@ -19,17 +19,43 @@ cache:
 
 
 # master 브랜치에 푸시되었을 때 수행하는 명령어
-# 여기서는 프로젝트 내부에 둔 gradlew을 통해 clean & build를 수행합니다.
+# 여기서는 프로젝트 내부에 둔 gradlew을 통해 clean & build를 수행한다.
 before_install:
   - chmod +x gradlew
 script: "./gradlew clean build"
 
 
 # CI 실행 완료 시 메일로 알람
-# Travis CI 실행완료 시 자동으로 알람이 가도록 설정합니다.
+# Travis CI 실행완료 시 자동으로 알람이 가도록 설정한다.
 notifications:
   email:
     recipients:
       - jinsb1995@gmail.com
 
 
+
+# deploy 명령어가 실행되기 전에 수행됩니다.
+# CodeDeploy는 Jar 파일은 인식하지 못하므로 Jar + 기타 설정 파일들을 모아 압축(zip) 한다.
+before_deploy:
+  # 현재 위치의 모든 파일을 freelec-springboot2-webservice 이름으로 압축(zip) 한다.
+  # 명령어의 마지막 위치는 본인의 프로젝트 이름이어야 한다.
+  - zip -r freelec-springboot2-webservice *
+
+  # deploy라는 디렉토리를 Travis CI가 실행중인 위치에서 생성
+  - mkdir -p deploy
+
+  # freelec-springboot2-webservice.zip 파일을 deploy/~으로 이동시킨다.
+  - mv freelec-springboot2-webservice.zip deploy/freelec-springboot2-webservice.zip
+
+
+# S3로 파일 업로드 or CodeDeploy로 배포 등 [외부 서비스와 연동될 행위들을 선언]한다.
+deploy:
+  - provider: s3
+    access_key_id: $AWS_ACCESS_KEY    # travis repo settings에 설정된 값
+    secret_access_key: $AWS_SECRET_KEY    # travis repo settings에 설정된 값
+    bucket: freelec-springboot-build-bjs
+    region: ap-northeast-2
+    skip_cleanup: true
+    acl: private  # zip 파일 접근을 private로 설정
+    local_dir: deploy  # before_deploy에서 생성한 디렉토리, 위에서 생성한 deploy 디렉토리를 지정 | 해당 위치의 파일들만 S3로 전송
+    wait_until_deployed: true
