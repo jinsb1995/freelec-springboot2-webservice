@@ -1,3 +1,7 @@
+#
+# 여기는 travis CI, 빌드를 도와주는 공간
+#
+
 language: java
 jdk:
   - openjdk8
@@ -25,14 +29,6 @@ before_install:
 script: "./gradlew clean build"
 
 
-# CI 실행 완료 시 메일로 알람
-# Travis CI 실행완료 시 자동으로 알람이 가도록 설정한다.
-notifications:
-  email:
-    recipients:
-      - jinsb1995@gmail.com
-
-
 
 # deploy 명령어가 실행되기 전에 수행됩니다.
 # CodeDeploy는 Jar 파일은 인식하지 못하므로 Jar + 기타 설정 파일들을 모아 압축(zip) 한다.
@@ -48,6 +44,9 @@ before_deploy:
   - mv freelec-springboot2-webservice.zip deploy/freelec-springboot2-webservice.zip
 
 
+
+
+
 # S3로 파일 업로드 or CodeDeploy로 배포 등 [외부 서비스와 연동될 행위들을 선언]한다.
 deploy:
   - provider: s3
@@ -59,3 +58,32 @@ deploy:
     acl: private  # zip 파일 접근을 private로 설정
     local_dir: deploy  # before_deploy에서 생성한 디렉토리, 위에서 생성한 deploy 디렉토리를 지정 | 해당 위치의 파일들만 S3로 전송
     wait_until_deployed: true
+
+
+  # ===============================
+  # 여기까지가 CI/CD중 CI가 완료된 지점
+  # ===============================
+
+
+
+  - provider: codedeploy
+    access_key_id: $AWS_ACCESS_KEY
+    secret_access_key: $AWS_SECRET_KEY
+    bucket: freelec-springboot-build-bjs  # S3 버킷
+    key: freelec-springboot2-webservice.zip  # 빌드 파일을 압축해서 전달
+    bundle_type: zip  # 압축 확장자
+    application: freelec-springboot2-webservice  # 웹에서 등록한 CodeDeploy 애플리케이션 이름
+    deployment_group: freelec-springboot2-webservice-group # 웹에서 등록한 CodeDeploy 배포 그룹
+    region: ap-northeast-2
+    wait-until-deployed: true
+
+
+
+# CI 실행 완료 시 메일로 알람
+# Travis CI 실행완료 시 자동으로 알람이 가도록 설정한다.
+notifications:
+  email:
+    recipients:
+      - jinsb1995@gmail.com
+
+
