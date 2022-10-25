@@ -36,13 +36,10 @@ echo "> $JAR_NAME 실행"
 
 
 #nohup java -jar -Dspring.config.location=classpath:/application.properties,/home/ec2-user/app/application-oauth.properties,/home/ec2-user/app/application-real-db.properties,classpath:/application-real.properties -Dspring.profiles.active=real $JAR_NAME > $REPOSITORY/nohup.out 2>&1 &
-nohup java -jar \
-#  -Dspring.config.location=classpath:/application.properties,/home/ec2-user/app/application-oauth.properties,/home/ec2-user/app/application-real-db.properties \
-  -Dspring.config.location=classpath:/application.properties,classpath:/application-real.properties,/home/ec2-user/app/application-oauth.properties,/home/ec2-user/app/application-real-db.properties \
-  -Dspring.profile.active=real \
-  $JAR_NAME > $REPOSITORY/nohup.out 2>&1 &
+nohup java -jar -Dspring.config.location=classpath:/application.properties,classpath:/application-real.properties,/home/ec2-user/app/application-oauth.properties,/home/ec2-user/app/application-real-db.properties -Dspring.profile.active=real $JAR_NAME > $REPOSITORY/nohup.out 2>&1 &
 
 # step1에서 했던 방식과 크게 다르지 않지만,
 # git pull을 이용해서 직접 빌드했던 부분이 제거되었다.
+#  -Dspring.config.location=classpath:/application.properties,/home/ec2-user/app/application-oauth.properties,/home/ec2-user/app/application-real-db.properties \
 
 # 그리고 jar를 실행하는 단계에서 몇가지 코드가 추가되었다.
