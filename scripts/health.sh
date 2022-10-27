@@ -27,7 +27,7 @@ sleep 10
 for RETRY_COUNT in {1..10}
 do
   RESPONSE=$(curl -s http://localhost:${IDLE_PORT}/profiles)
-  UP_COUNT=$(echo ${RESPONSE} | grep 'real' | wc -1)
+  UP_COUNT=$(echo ${RESPONSE} | grep 'real' | wc -l)
 
   # $up_count >= 1 (real 문자열이 있는지 검증)
   if [ ${UP_COUNT} -ge 1 ]
