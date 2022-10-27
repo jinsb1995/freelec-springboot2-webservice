@@ -12,7 +12,7 @@
 
 
 ABSPATH=$(readlink -f $0)
-ABSDIR=$(firname $ABSPATH)
+ABSDIR=$(dirname $ABSPATH)
 source ${ABSDIR}/profile.sh
 source ${ABSDIR}/switch.sh
 
