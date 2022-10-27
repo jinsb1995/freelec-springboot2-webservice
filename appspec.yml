@@ -13,7 +13,7 @@ files:
 
     # source에서 지정된 파일을 받을 위치
     # 이후 Jar를 실행하는 등은 destination에서 옮긴 파일들로 진행된다.
-    destination: /home/ec2-user/app/step2/zip/
+    destination: /home/ec2-user/app/step3/zip/
 
     # 기존에 파일이 있으면 덮어쓸지를 결정한다.
     # 현재 yes라고 했으니 파일들을 덮어쓰게 된다.
@@ -30,9 +30,22 @@ permissions:
 
 # CodeDeploy 배포 단계에서 실행할 명령어를 지정한다.
 # ApplicationStart라는 단계에서, deploy.sh를 ec2-user 권한으로 실행하게 된다.
-
 hooks:
+#  ApplicationStart:
+#    - location: deploy.sh
+#      timeout: 60
+#      runas: ec2-user
+  AfterInstall:
+    - location: stop.sh  # Nginx와 연결되어 있지 않은 스프링 부트를 종료한다.
+      timeout: 60
+      runas: ec2-user
+
   ApplicationStart:
-    - location: deploy.sh
+    - location: start.sh   # Nginx와 연결되어 있지 않은 Port로 새 버전의 스프링 부트를 시작한다.
+      timeout: 60
+      runas: ec2-user
+
+  ValidateService:
+    - location: health.sh  # 새 스프링 부트가 정상적으로 실행됐는지 check한다.
       timeout: 60
       runas: ec2-user
